@@ -1,13 +1,17 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import { useQuery } from "@apollo/client";
 import { useNavigation } from '@react-navigation/native';
 
 import TileView from "./tile";
 import { Button } from "react-native-paper";
 import ProductItem from "../Dashboard/productItem";
+import {GET_ALL_PRODUCTS} from "../../../graphql/queries/AllQueries";
 
 const StockAnalytics = () => {
+  // use this to loop
+  const {data} = useQuery(GET_ALL_PRODUCTS);
   const navigation = useNavigation();
   return (
     <ScrollView contentContainerStyle={styles.container}>

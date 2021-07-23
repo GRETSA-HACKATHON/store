@@ -1,11 +1,41 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TextInput, Button } from "react-native-paper";
+import {useMutation} from "@apollo/client";
+import * as Yup from "yup";
+import {Formik} from "formik";
+import {SIGN_IN} from "../../../graphql/queries/AllQueries";
 import { useNavigation } from '@react-navigation/native';
 
+const SignInValidation = Yup.object().shape({
+  email:Yup.string().required("Please pass your email"),
+  password:Yup.string().required("Please pass your password"),
+});
+
 const Login = () => {
-  const navigation = useNavigation();
+    const [SignInMutation] = useMutation(SIGN_IN);
+    const navigation = useNavigation();
   return (
+    <Formik
+      initialValues={{
+        email:"",
+        password:""
+      }}
+
+      onSubmit={(values)=>{
+        SignInMutation({
+          variables:{
+            input:{
+              email:values.email,
+              password:values.password
+            }
+          }
+        })
+      }}
+
+      validationSchema={SignInValidation}
+    >
+    {({handleChange,submitForm})=>(
     <View style={styles.login}>
       <Image source={require('../../../images/loginImag.png')} style={styles.image} />
       <View style={styles.form}>
@@ -13,13 +43,17 @@ const Login = () => {
         <TextInput
           label="Email"
           placeholder="Your email ID"
+          name="email"
           style={styles.input}
+          onChange={handleChange}
           right={<TextInput.Icon name="email" />}
         />
         <TextInput
           label="Password"
           placeholder="Password"
+          name="password"
           style={styles.input}
+          onChange={handleChange}
           right={<TextInput.Icon name="eye" />}
         />
         <Button style={styles.button} mode="contained" onPress={() => navigation.navigate("Drawer", { screen: "Dashboard"})}>
@@ -31,6 +65,8 @@ const Login = () => {
         </View>
       </View>
     </View>
+    )}
+    </Formik>
   );
 };
 

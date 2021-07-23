@@ -10,12 +10,16 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Avatar, Menu } from "react-native-paper";
 import { LineChart } from "react-native-chart-kit";
+import {useQuery} from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 
 import TileView from "./tile";
 import ProductItem from "./productItem";
+import {GET_ALL_STOCKS} from "../../../graphql/queries/AllQueries";
 
 const Dashboard = () => {
+  // use this to get the data for the four boxes
+  const {data} = useQuery(GET_ALL_STOCKS);
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   return (
