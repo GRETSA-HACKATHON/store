@@ -3,11 +3,15 @@ import { ScrollView, View, Text, StyleSheet, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { LineChart } from "react-native-chart-kit";
+import {useQuery} from "@apollo/client";
 
 import TileView from "./tile";
 import ProductItem from "./productItem";
+import {GET_ALL_PRODUCTS} from "../../../graphql/queries/AllQueries";
 
 const Dashboard = () => {
+  // use this to get the data for the four boxes
+  const {data} = useQuery(GET_ALL_STOCKS);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headerNav}>
