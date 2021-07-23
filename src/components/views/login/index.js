@@ -5,6 +5,7 @@ import {useMutation} from "@apollo/client";
 import * as Yup from "yup";
 import {Formik} from "formik";
 import {SIGN_IN} from "../../../graphql/queries/AllQueries";
+import { useNavigation } from '@react-navigation/native';
 
 const SignInValidation = Yup.object().shape({
   email:Yup.string().required("Please pass your email"),
@@ -13,6 +14,7 @@ const SignInValidation = Yup.object().shape({
 
 const Login = () => {
     const [SignInMutation] = useMutation(SIGN_IN);
+    const navigation = useNavigation();
   return (
     <Formik
       initialValues={{
@@ -31,7 +33,7 @@ const Login = () => {
         })
       }}
 
-      validationSchema={SignIpValidation}
+      validationSchema={SignInValidation}
     >
     {({handleChange,submitForm})=>(
     <View style={styles.login}>
@@ -54,12 +56,12 @@ const Login = () => {
           onChange={handleChange}
           right={<TextInput.Icon name="eye" />}
         />
-        <Button style={styles.button} mode="contained" onPress={submitForm}>
+        <Button style={styles.button} mode="contained" onPress={() => navigation.navigate("Drawer", { screen: "Dashboard"})}>
           Log In
         </Button>
         <View style={styles.signup}>
           <Text>Don't have an account? </Text>
-          <Button>Signup here</Button>
+          <Button onPress={() => navigation.navigate("Signup")}>Signup here</Button>
         </View>
       </View>
     </View>
@@ -71,7 +73,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ccc",
+    backgroundColor: "#fff",
   },
   image: {
     backgroundColor: "#ccc",

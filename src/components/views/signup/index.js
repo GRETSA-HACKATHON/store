@@ -1,44 +1,8 @@
-// import React from "react";
-// import { View, Text, StyleSheet } from "react-native";
-// import { TextInput, Button } from "react-native-paper";
-
-// const SignUp = () => {
-//   return (
-//     <View>
-//       <View />
-//       <Text>Register</Text>
-//       <TextInput label="Name" placeholder="Your name" />
-//       <TextInput
-//         label="Email"
-//         placeholder="Your email ID"
-//         right={<TextInput.Icon name="email" />}
-//       />
-//       <TextInput
-//         label="Password"
-//         placeholder="Password"
-//         right={<TextInput.Icon name="eye" />}
-//       />
-//       <Button>Forgot Password?</Button>
-//       <Button mode="contained" onPress={() => console.log("Pressed")}>
-//         Submit
-//       </Button>
-//       <Text>
-//         Don't have an account? <Button>Signup here</Button>
-//       </Text>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {},
-//   image: {},
-// });
-
-// export default SignUp;
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import {useMutation} from "@apollo/client";
+import { useNavigation } from '@react-navigation/native';
 import * as Yup from "yup";
 import {Formik} from "formik";
 import {SIGN_UP} from "../../../graphql/queries/AllQueries";
@@ -51,6 +15,7 @@ const SignUpValidation = Yup.object().shape({
 
 const Signup = () => {
   const [SignUpMutation] = useMutation(SIGN_UP);
+  const navigation = useNavigation();
   return (
     <Formik
       initialValues={{
@@ -81,8 +46,8 @@ const Signup = () => {
         <TextInput name="name" label="Name" style={styles.input} placeholder="Your name" />
           <TextInput
             label="Email"
-            name="email"
             placeholder="Your email ID"
+            name="email"
             onChange={handleChange}
             style={styles.input}
             right={<TextInput.Icon name="email" />}
@@ -95,15 +60,15 @@ const Signup = () => {
             style={styles.input}
             right={<TextInput.Icon name="eye" />}
           />
-          <Button style={styles.button} mode="contained" onPress={submitForm}>
+          <Button style={styles.button} mode="contained" onPress={() => navigation.navigate("Drawer", { screen: "Dashboard"})}>
             Submit
           </Button>
           <View style={styles.signup}>
             <Text>Already have an account? </Text>
-            <Button>Login here</Button>
+            <Button onPress={() => navigation.navigate("Login")}>Login here</Button>
           </View>
         </View>
-      </View>
+        </View>
     )}
     </Formik>
   );
