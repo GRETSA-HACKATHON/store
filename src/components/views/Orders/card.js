@@ -19,8 +19,16 @@ const CardProduct = () => {
         <Text>$634</Text>
       </View>
       <View>
-        <Text>1 x </Text>
-        <Avatar.Icon icon="folder" />
+        <View>
+          <Text>1 x </Text>
+          <Avatar.Icon icon="folder" />
+          <Text>Apple watch</Text>
+        </View>
+        <View>
+          <Text>2 x </Text>
+          <Avatar.Icon icon="folder" />
+          <Text>Apple watch</Text>
+        </View>
       </View>
     </View>
   );

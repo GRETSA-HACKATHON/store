@@ -1,45 +1,10 @@
-// import React from "react";
-// import { View, Text, StyleSheet } from "react-native";
-// import { TextInput, Button } from "react-native-paper";
-
-// const SignUp = () => {
-//   return (
-//     <View>
-//       <View />
-//       <Text>Register</Text>
-//       <TextInput label="Name" placeholder="Your name" />
-//       <TextInput
-//         label="Email"
-//         placeholder="Your email ID"
-//         right={<TextInput.Icon name="email" />}
-//       />
-//       <TextInput
-//         label="Password"
-//         placeholder="Password"
-//         right={<TextInput.Icon name="eye" />}
-//       />
-//       <Button>Forgot Password?</Button>
-//       <Button mode="contained" onPress={() => console.log("Pressed")}>
-//         Submit
-//       </Button>
-//       <Text>
-//         Don't have an account? <Button>Signup here</Button>
-//       </Text>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {},
-//   image: {},
-// });
-
-// export default SignUp;
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TextInput, Button } from "react-native-paper";
+import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.login}>
       <Image source={require('../../../images/welcome.png')} style={styles.image} />
@@ -58,12 +23,12 @@ const Signup = () => {
           style={styles.input}
           right={<TextInput.Icon name="eye" />}
         />
-        <Button style={styles.button} mode="contained" onPress={() => console.log("Pressed")}>
+        <Button style={styles.button} mode="contained" onPress={() => navigation.navigate("Drawer", { screen: "Dashboard"})}>
           Submit
         </Button>
         <View style={styles.signup}>
           <Text>Already have an account? </Text>
-          <Button>Login here</Button>
+          <Button onPress={() => navigation.navigate("Login")}>Login here</Button>
         </View>
       </View>
     </View>

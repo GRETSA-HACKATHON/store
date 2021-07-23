@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TextInput, Button } from "react-native-paper";
+import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.login}>
       <Image source={require('../../../images/loginImag.png')} style={styles.image} />
@@ -20,12 +22,12 @@ const Login = () => {
           style={styles.input}
           right={<TextInput.Icon name="eye" />}
         />
-        <Button style={styles.button} mode="contained" onPress={() => console.log("Pressed")}>
+        <Button style={styles.button} mode="contained" onPress={() => navigation.navigate("Drawer", { screen: "Dashboard"})}>
           Log In
         </Button>
         <View style={styles.signup}>
           <Text>Don't have an account? </Text>
-          <Button>Signup here</Button>
+          <Button onPress={() => navigation.navigate("Signup")}>Signup here</Button>
         </View>
       </View>
     </View>

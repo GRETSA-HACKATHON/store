@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Card, Divider } from 'react-native-paper';
 
 const ProductItem = () => {
   return (
     <Card style={styles.container}>
       <View style={styles.upperView}>
-        <View style={styles.image}></View>
+        <Image style={styles.image} source={require('../../../images/watch.jpg')}/>
         <View>
           <Text style={styles.title}>Apple smart watch</Text>
           <Text style={styles.text}>$140</Text>

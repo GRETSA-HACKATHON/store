@@ -1,25 +1,36 @@
 import React from "react";
-import { ScrollView, View, Text, StyleSheet, Dimensions } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { LineChart } from "react-native-chart-kit";
+import { useNavigation } from '@react-navigation/native';
 
 import TileView from "./tile";
 import ProductItem from "./productItem";
 
 const Dashboard = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headerNav}>
-        <Ionicons name="ios-grid" size={24} color="grey" />
-        <View style={styles.avatarView}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Ionicons name="ios-grid" size={24} color="grey" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.avatarView}>
           <Avatar.Image
             size={40}
             style={{ marginRight: 10 }}
             source={require("../../../images/black-guy.jpg")}
           />
           <Text style={{ fontweight: "bold", fontSize: 18 }}>Bonvic</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.tiles}>
         <TileView color="#5036f1" cost={"$2500"} tap category="Today sales" />
